@@ -5,10 +5,7 @@ import com.kosmoastronauta.demo.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -46,5 +43,21 @@ public class BookController
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/getBooksBySchoolId/{schoolId}/")
+    public ResponseEntity<List<Book>> getBooksBySchoolId(@PathVariable long schoolId)
+    {
+        List<Book> books;
+
+        try
+        {
+            books = bookService.getAllBooksBySchoolId(schoolId);
+        }catch(NoSuchElementException e)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 }

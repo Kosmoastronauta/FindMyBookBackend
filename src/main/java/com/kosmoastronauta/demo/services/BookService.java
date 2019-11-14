@@ -36,4 +36,15 @@ public class BookService
     {
         return !book.getTitle().isEmpty();
     }
+
+    public List<Book> getAllBooksBySchoolId(long schoolId)
+    {
+        //TODO check if this id in school table exists
+
+        List<Book> books = new ArrayList<>(bookRepository.getBooksBySchoolIdEquals(schoolId));
+
+        if(books.isEmpty()) throw new NoSuchElementException("There is no books in that school");
+
+        return books;
+    }
 }
