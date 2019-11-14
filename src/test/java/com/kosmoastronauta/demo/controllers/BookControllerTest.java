@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 class BookControllerTest
 {
-    public static final String URL = "http://localhost";
+    private static final String URL = "http://localhost";
 
     @Test
     @Order(1)

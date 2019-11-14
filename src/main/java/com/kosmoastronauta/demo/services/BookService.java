@@ -5,6 +5,7 @@ import com.kosmoastronauta.demo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -23,5 +24,16 @@ public class BookService
         if(books.isEmpty()) throw new NoSuchElementException("There is no books");
 
         return books;
+    }
+
+    public void addNewBook(Book book)
+    {
+        if(!isBookValid(book)) throw new InvalidParameterException("Book has not required fields");
+        bookRepository.save(book);
+    }
+
+    private boolean isBookValid(Book book)
+    {
+        return !book.getTitle().isEmpty();
     }
 }
