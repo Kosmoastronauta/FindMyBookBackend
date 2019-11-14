@@ -1,5 +1,6 @@
 package com.kosmoastronauta.demo.controllers;
 
+import com.github.javafaker.Faker;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.parsing.Parser;
 import com.kosmoastronauta.demo.domain.Book;
@@ -13,7 +14,9 @@ import static com.jayway.restassured.RestAssured.given;
 
 class BookControllerTest
 {
-    private static final String URL = "http://localhost";
+    private static final String URL = "http://localhost:8080";
+
+    private static Faker faker = new Faker();
 
     @Test
     @Order(1)
@@ -23,21 +26,29 @@ class BookControllerTest
     }
 
     @Test
-    public void addNewValidBook() throws JSONException
+    @Order(2)
+    public void addNewValidBook()
     {
-        RestAssured.defaultParser = Parser.JSON;
-        JSONObject request = new JSONObject();
-        request.put("title", "Temp Book2!!!!");
-        request.put("author", "Temp author2!!!!!");
-        request.put("edition", "first2!!!!");
-        request.put("describe", "");
-        request.put("year", 2002);
+        try
+        {
+            RestAssured.defaultParser = Parser.JSON;
+            JSONObject request = new JSONObject();
+            request.put("title", faker.book().title());
+            request.put("author", faker.book().author());
+            request.put("edition", faker.name().name());
+            request.put("describe", faker.name().title());
+            request.put("year", faker.number().randomNumber());
+            request.put("subject", faker.name().lastName());
+            request.put("schoolId", faker.number().randomNumber());
 
-        Book book = given().contentType("application/json")
-                .body(request.toString())
-                .when().post(URL + "/books/")
-                .then().statusCode(HttpStatus.OK.value())
-                .extract().as(Book.class);
+            Book book = given().contentType("application/json")
+                    .body(request.toString())
+                    .when().post(URL + "/addNewBook/")
+                    .then().statusCode(HttpStatus.OK.value())
+                    .extract().as(Book.class);
+        } catch(Exception e)
+        {}
+
     }
 
 }

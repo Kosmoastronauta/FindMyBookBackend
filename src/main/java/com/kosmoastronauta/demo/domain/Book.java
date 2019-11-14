@@ -14,13 +14,31 @@ public class Book
 
     private String title;
     private String author;
-    private String describe;
+    private String subject;
+    private String edition;
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
     private String year;
     private String description;
     private long schoolId;
 
     public long getSchoolId() {
         return schoolId;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public void setSchoolId(long schoolId) {
@@ -49,14 +67,6 @@ public class Book
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
     }
 
     public String getYear() {
