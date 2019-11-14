@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -37,6 +38,13 @@ public class BookController
     @PostMapping("/addNewBook/")
     public ResponseEntity<HttpStatus> addNewBook(@RequestBody Book book)
     {
-        bookService.addNewBook()
+        try
+        {
+            bookService.addNewBook(book);
+        }catch(InvalidParameterException e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
