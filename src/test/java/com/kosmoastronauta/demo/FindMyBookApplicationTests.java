@@ -1,5 +1,7 @@
 package com.kosmoastronauta.demo;
 
+import javafx.beans.binding.When;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -8,7 +10,10 @@ class FindMyBookApplicationTests
 {
 
     @Test
-    void contextLoads() {
+    @Order(1)
+    void getAllBooksWhileThereIsNoBookInDatabase()
+    {
+        given()
     }
 
 }
