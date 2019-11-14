@@ -17,6 +17,15 @@ public class Book
     private String describe;
     private String year;
     private String description;
+    private long schoolId;
+
+    public long getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(long schoolId) {
+        this.schoolId = schoolId;
+    }
 
     public long getId() {
         return id;
