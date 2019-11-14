@@ -9,6 +9,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService
@@ -47,4 +48,37 @@ public class BookService
 
         return books;
     }
+
+    public List<Book> getAllBooksLikeThat(Book book)
+    {
+        List<Book> books = this.getAllBooksBySchoolId(book.getSchoolId());
+        if(!book.getTitle().isEmpty())
+        {
+            String title = book.getTitle();
+            books.removeIf(book1 -> book1.getTitle().equals(title));
+        }
+
+        if(!book.getAuthor().isEmpty())
+        {
+            String author = book.getAuthor();
+            books.removeIf(book1 -> book1.getAuthor().equals(author));
+        }
+
+        if(!book.getEdition().isEmpty())
+        {
+            String edition = book.getEdition();
+            books.removeIf(book1 -> book1.getEdition().equals(edition));
+        }
+
+        if(!book.getSubject().isEmpty())
+        {
+            String subject = book.getSubject();
+            books.removeIf(book1 -> book1.getSubject().equals(subject));
+        }
+
+        if(books.isEmpty()) throw new NoSuchElementException("No such books");
+
+        return books;
+    }
+
 }

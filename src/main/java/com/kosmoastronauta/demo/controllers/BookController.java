@@ -60,4 +60,18 @@ public class BookController
 
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
+
+    @GetMapping("/getBooksFromSchoolWithSpecifiedData/")
+    public ResponseEntity<List<Book>> getBooksFromSchoolWithSpecifiedFields(@RequestBody Book book)
+    {
+        List<Book> books;
+        try
+        {
+            books= bookService.getAllBooksLikeThat(book);
+        }catch(NoSuchElementException e)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
 }
