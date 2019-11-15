@@ -2,20 +2,21 @@ package com.kosmoastronauta.demo.services;
 
 import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.repositories.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 public class BookService
 {
-    @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository)
+    {
+        this.bookRepository = bookRepository;
+    }
 
     public List<Book> getAllBooks()
     {
