@@ -61,7 +61,7 @@ public class BookController
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @GetMapping("/getBooksFromSchoolWithSpecifiedData/")
+    @PostMapping("/getBooksFromSchoolWithSpecifiedData/")
     public ResponseEntity<List<Book>> getBooksFromSchoolWithSpecifiedFields(@RequestBody Book book)
     {
         List<Book> books;

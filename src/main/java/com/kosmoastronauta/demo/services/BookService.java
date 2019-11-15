@@ -2,6 +2,7 @@ package com.kosmoastronauta.demo.services;
 
 import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class BookService
 {
     private BookRepository bookRepository;
 
+    @Autowired
     public BookService(BookRepository bookRepository)
     {
         this.bookRepository = bookRepository;
@@ -56,25 +58,25 @@ public class BookService
         if(!book.getTitle().isEmpty())
         {
             String title = book.getTitle();
-            books.removeIf(book1 -> book1.getTitle().equals(title));
+            books.removeIf(book1 -> !book1.getTitle().equals(title));
         }
 
         if(!book.getAuthor().isEmpty())
         {
             String author = book.getAuthor();
-            books.removeIf(book1 -> book1.getAuthor().equals(author));
+            books.removeIf(book1 -> !book1.getAuthor().equals(author));
         }
 
         if(!book.getEdition().isEmpty())
         {
             String edition = book.getEdition();
-            books.removeIf(book1 -> book1.getEdition().equals(edition));
+            books.removeIf(book1 -> !book1.getEdition().equals(edition));
         }
 
         if(!book.getSubject().isEmpty())
         {
             String subject = book.getSubject();
-            books.removeIf(book1 -> book1.getSubject().equals(subject));
+            books.removeIf(book1 -> !book1.getSubject().equals(subject));
         }
 
         if(books.isEmpty()) throw new NoSuchElementException("No such books");
